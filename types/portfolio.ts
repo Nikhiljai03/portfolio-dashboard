@@ -5,6 +5,8 @@ export type Holding = {
   code: string;
   exchange: "NSE" | "BSE";
   sector: string;
+  yahooSymbol: string;
+  googleSymbol: string;
 };
 
 export type PortfolioRow = Holding & {
