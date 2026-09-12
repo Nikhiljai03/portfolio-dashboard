@@ -31,3 +31,4 @@ export type Portfolio = {
   sectors: SectorGroup[];
   lastUpdated: string;
 };
+

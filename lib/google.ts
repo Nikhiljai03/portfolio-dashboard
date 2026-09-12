@@ -36,3 +36,16 @@ export async function getFundamentals(symbol: string): Promise<Fundamentals> {
     return { peRatio: null, latestEarnings: null };
   }
 }
+
+
+export async function getAllFundamentals(
+  symbols: string[],
+): Promise<Record<string, Fundamentals>> {
+  const results = await Promise.all(symbols.map((s) => getFundamentals(s)));
+
+  const map: Record<string, Fundamentals> = {};
+  symbols.forEach((symbol, i) => {
+    map[symbol] = results[i];
+  });
+  return map;
+}

@@ -1,11 +1,14 @@
-import holdingsData from "@/data/holdings.json";
-import { getPrices } from "@/lib/yahoo";
-import type { Holding } from "@/types/portfolio";
-
-const holdings = holdingsData as Holding[];
+import { buildPortfolio } from "@/lib/portfolio";
 
 export async function GET() {
-  const symbols = holdings.map((h) => h.yahooSymbol);
-  const prices = await getPrices(symbols);
-  return Response.json(prices);
+  try {
+    const portfolio = await buildPortfolio();
+    return Response.json(portfolio);
+  } catch (error) {
+    console.error("Failed to build portfolio:", error);
+    return Response.json(
+      { error: "Could not load portfolio data. Please try again." },
+      { status: 500 },
+    );
+  }
 }
